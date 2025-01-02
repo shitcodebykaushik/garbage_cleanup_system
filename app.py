@@ -78,7 +78,14 @@ def generate_report_route():
     before_annotated_path = os.path.join(output_dir, "before_annotated.jpg")
     after_annotated_path = os.path.join(output_dir, "after_annotated.jpg")
     report_path = generate_report(before_objects, after_objects, before_annotated_path, after_annotated_path)
-    return send_file(report_path, as_attachment=True)
+    
+    # Ensure proper headers for the PDF file
+    return send_file(
+        report_path,
+        as_attachment=True,
+        mimetype='application/pdf',
+        download_name='cleanup_report.pdf'  # Specify the correct file name
+    )
 
 def detect_objects(image_path, output_name):
     """

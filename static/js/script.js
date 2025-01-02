@@ -22,7 +22,7 @@ document.getElementById('generate-report').onclick = async function() {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'cleanup_report.txt';
+        a.download = 'cleanup_report.pdf';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
