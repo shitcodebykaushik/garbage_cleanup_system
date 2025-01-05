@@ -1,4 +1,3 @@
-/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
     background: #f4f4f9;
@@ -39,12 +38,6 @@ header {
     text-align: center;
 }
 
-.upload-box h2 {
-    color: #4caf50;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
 .image-preview {
     flex-grow: 1;
     border: 1px dashed #cccccc;
@@ -68,10 +61,6 @@ header {
     font-size: 0.9rem;
 }
 
-.upload-box input[type="file"] {
-    margin-bottom: 10px;
-}
-
 button {
     padding: 10px 15px;
     background: #4caf50;
@@ -84,22 +73,4 @@ button {
 
 button:hover {
     background: #388e3c;
-}
-
-.generate {
-    margin-top: 30px;
-}
-
-.generate button {
-    padding: 15px 20px;
-    font-size: 1.2rem;
-    background: #f9a825;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-}
-
-.generate button:hover {
-    background: #e58b00;
 }

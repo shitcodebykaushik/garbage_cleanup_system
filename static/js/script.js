@@ -1,3 +1,29 @@
+document.getElementById('before-image').addEventListener('change', function (event) {
+    displayImagePreview(event, 'before-preview');
+});
+
+document.getElementById('after-image').addEventListener('change', function (event) {
+    displayImagePreview(event, 'after-preview');
+});
+
+function displayImagePreview(event, previewId) {
+    const file = event.target.files[0];
+    const preview = document.getElementById(previewId);
+    preview.innerHTML = '';
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.innerHTML = '<p>No image selected</p>';
+    }
+}
+
 document.getElementById('before-form').onsubmit = async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
