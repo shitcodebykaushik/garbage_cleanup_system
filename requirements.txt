@@ -1,3 +1,6 @@
 Flask
 ultralytics
 opencv-python
+gunicorn==20.1.0
+reportlab
+Pillow
