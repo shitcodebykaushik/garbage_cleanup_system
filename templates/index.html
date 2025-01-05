@@ -14,9 +14,10 @@
     </header>
     <main>
         <div class="container">
+            <!-- Before and After Image Upload Sections -->
             <div class="upload-sections">
                 <form id="before-form" class="upload-box" enctype="multipart/form-data">
-                    <h2>Before Image</h2>
+                    <h2>Image By Citizen</h2>
                     <div class="image-preview" id="before-preview">
                         <p>No image selected</p>
                     </div>
@@ -25,7 +26,7 @@
                     <button type="submit">Upload</button>
                 </form>
                 <form id="after-form" class="upload-box" enctype="multipart/form-data">
-                    <h2>After Image</h2>
+                    <h2>Image By Cleaner </h2>
                     <div class="image-preview" id="after-preview">
                         <p>No image selected</p>
                     </div>
@@ -34,8 +35,18 @@
                     <button type="submit">Upload</button>
                 </form>
             </div>
+
+            <!-- Generate Report Button -->
             <div class="generate">
                 <button id="generate-report">Generate Report</button>
+            </div>
+
+            <!-- Available Reports Section -->
+            <div class="reports-section">
+                <h2>Available Reports</h2>
+                <div id="reports-list">
+                    <p>Loading reports...</p>
+                </div>
             </div>
         </div>
     </main>

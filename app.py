@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, jsonify
 from ultralytics import YOLO
 import os
 from reportlab.lib.pagesizes import letter
@@ -6,6 +6,7 @@ from reportlab.pdfgen import canvas
 from PIL import Image
 import mimetypes
 import cv2
+import time
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -19,7 +20,9 @@ except Exception as e:
 
 # Output directory
 output_dir = "./output"
+reports_dir = os.path.join(output_dir, "reports")
 os.makedirs(output_dir, exist_ok=True)
+os.makedirs(reports_dir, exist_ok=True)
 
 def is_valid_image(file_path):
     try:
@@ -66,13 +69,34 @@ def generate_report_route():
     after_objects = detect_objects(after_image_path, "after_annotated.jpg")
     before_annotated_path = os.path.join(output_dir, "before_annotated.jpg")
     after_annotated_path = os.path.join(output_dir, "after_annotated.jpg")
-    report_path = generate_report(before_objects, after_objects, before_annotated_path, after_annotated_path)
-    return send_file(
-        report_path,
-        as_attachment=True,
-        mimetype='application/pdf',
-        download_name='cleanup_report.pdf'
-    )
+
+    # Generate a report with a unique name
+    timestamp = int(time.time())
+    report_path = os.path.join(reports_dir, f"cleanup_report_{timestamp}.pdf")
+    generate_report(before_objects, after_objects, before_annotated_path, after_annotated_path, report_path)
+
+    return {"success": True}
+
+@app.route('/get_reports', methods=['GET'])
+def get_reports():
+    """
+    Fetch all available reports in the reports directory.
+    """
+    reports = [
+        {"name": f, "url": f"/download_report/{f}"}
+        for f in os.listdir(reports_dir) if f.endswith('.pdf')
+    ]
+    return jsonify(reports)
+
+@app.route('/download_report/<filename>', methods=['GET'])
+def download_report(filename):
+    """
+    Serve a specific report for download.
+    """
+    file_path = os.path.join(reports_dir, filename)
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True, mimetype='application/pdf')
+    return {"success": False, "error": "File not found."}
 
 def detect_objects(image_path, output_name):
     results = model.predict(image_path, save=False)
@@ -81,10 +105,9 @@ def detect_objects(image_path, output_name):
     cv2.imwrite(annotated_image_path, annotated_image)
     return [int(box[-1]) for box in results[0].boxes.data.tolist()]
 
-def generate_report(before_objects, after_objects, before_annotated_path, after_annotated_path):
+def generate_report(before_objects, after_objects, before_annotated_path, after_annotated_path, report_path):
     removed_objects = set(before_objects) - set(after_objects)
     remaining_objects = set(before_objects) & set(after_objects)
-    report_path = os.path.join(output_dir, "cleanup_report.pdf")
     c = canvas.Canvas(report_path, pagesize=letter)
     width, height = letter
     c.setFont("Helvetica-Bold", 16)
@@ -104,7 +127,6 @@ def generate_report(before_objects, after_objects, before_annotated_path, after_
     c.drawImage(after_annotated_path, 320, image_y - 250, width=250, height=250)
     c.drawString(320, image_y - 260, "After Cleanup")
     c.save()
-    return report_path
 
 if __name__ == '__main__':
     app.run(debug=True)
