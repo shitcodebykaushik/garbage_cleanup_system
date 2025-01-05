@@ -1,31 +1,105 @@
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f9;
     margin: 0;
     padding: 0;
+    text-align: center;
+}
+
+header {
+    background: #4caf50;
+    color: white;
+    padding: 20px 0;
 }
 
 .container {
-    max-width: 800px;
-    margin: 50px auto;
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+.upload-sections {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.upload-box {
     background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.upload-section {
-    margin-bottom: 20px;
+.upload-box h2 {
+    color: #4caf50;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.image-preview {
+    flex-grow: 1;
+    border: 1px dashed #cccccc;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+    overflow: hidden;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.image-preview p {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+}
+
+.upload-box input[type="file"] {
+    margin-bottom: 10px;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #007bff;
+    padding: 10px 15px;
+    background: #4caf50;
     color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background: #388e3c;
+}
+
+.generate {
+    margin-top: 30px;
+}
+
+.generate button {
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    background: #f9a825;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.generate button:hover {
+    background: #e58b00;
 }

@@ -1,20 +1,20 @@
-document.getElementById('before-form').onsubmit = async function(e) {
+document.getElementById('before-form').onsubmit = async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
     const response = await fetch('/upload', { method: 'POST', body: formData });
     const result = await response.json();
-    alert(result.success ? "Before Image Uploaded!" : "Upload Failed!");
+    alert(result.success ? "Before Image Uploaded!" : `Error: ${result.error}`);
 };
 
-document.getElementById('after-form').onsubmit = async function(e) {
+document.getElementById('after-form').onsubmit = async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
     const response = await fetch('/upload', { method: 'POST', body: formData });
     const result = await response.json();
-    alert(result.success ? "After Image Uploaded!" : "Upload Failed!");
+    alert(result.success ? "After Image Uploaded!" : `Error: ${result.error}`);
 };
 
-document.getElementById('generate-report').onclick = async function() {
+document.getElementById('generate-report').onclick = async function () {
     const response = await fetch('/generate_report', { method: 'POST' });
     if (response.ok) {
         const blob = await response.blob();
@@ -26,8 +26,8 @@ document.getElementById('generate-report').onclick = async function() {
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-        alert("Report Downloaded!");
+        alert("Report Generated and Downloaded!");
     } else {
-        alert("Failed to generate report!");
+        alert("Failed to generate report.");
     }
 };

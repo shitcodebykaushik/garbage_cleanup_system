@@ -5,30 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garbage Cleanup System</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <header class="header">
         <h1>Garbage Cleanup System</h1>
-        <div class="upload-section">
-            <h2>Upload "Before" Image</h2>
-            <form id="before-form" enctype="multipart/form-data">
-                <input type="file" name="image" required>
-                <input type="hidden" name="image_type" value="before">
-                <button type="submit">Upload</button>
-            </form>
+        <p>Upload cleanup images and generate your report!</p>
+    </header>
+    <main>
+        <div class="container">
+            <div class="upload-sections">
+                <form id="before-form" class="upload-box" enctype="multipart/form-data">
+                    <h2>Before Image</h2>
+                    <div class="image-preview" id="before-preview">
+                        <p>No image selected</p>
+                    </div>
+                    <input type="file" name="image" id="before-image" accept="image/*" required>
+                    <input type="hidden" name="image_type" value="before">
+                    <button type="submit">Upload</button>
+                </form>
+                <form id="after-form" class="upload-box" enctype="multipart/form-data">
+                    <h2>After Image</h2>
+                    <div class="image-preview" id="after-preview">
+                        <p>No image selected</p>
+                    </div>
+                    <input type="file" name="image" id="after-image" accept="image/*" required>
+                    <input type="hidden" name="image_type" value="after">
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="generate">
+                <button id="generate-report">Generate Report</button>
+            </div>
         </div>
-        <div class="upload-section">
-            <h2>Upload "After" Image</h2>
-            <form id="after-form" enctype="multipart/form-data">
-                <input type="file" name="image" required>
-                <input type="hidden" name="image_type" value="after">
-                <button type="submit">Upload</button>
-            </form>
-        </div>
-        <div class="generate-section">
-            <button id="generate-report">Generate Report</button>
-        </div>
-    </div>
+    </main>
     <script src="/static/js/script.js"></script>
 </body>
 </html>
